@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>VBAutoRunRegistry</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImportedNamespaces>JetBrains.Annotations=False,Microsoft.Extensions.DependencyInjection=False,Microsoft.Extensions.DependencyInjection.Extensions=False,Microsoft.Win32=False,VBAutoRunRegistry.Application=False,VBAutoRunRegistry.Application.Interfaces=False,VBAutoRunRegistry.RegistryManagement=False,VBAutoRunRegistry.RegistryManagement.Interfaces=False,VBAutoRunRegistry.RegistryManagement.RegistryAccess=False,VBAutoRunRegistry.Utilities.Interfaces=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,VBAutoRunRegistry=True</ImportedNamespaces>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Utilities\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="JetBrains.Annotations" />
+    <Import Include="Microsoft.Extensions.DependencyInjection" />
+    <Import Include="Microsoft.Extensions.DependencyInjection.Extensions" />
+    <Import Include="Microsoft.Win32" />
+    <Import Include="VBAutoRunRegistry.Application" />
+    <Import Include="VBAutoRunRegistry.Application.Interfaces" />
+    <Import Include="VBAutoRunRegistry.RegistryManagement" />
+    <Import Include="VBAutoRunRegistry.RegistryManagement.Interfaces" />
+    <Import Include="VBAutoRunRegistry.RegistryManagement.RegistryAccess" />
+    <Import Include="VBAutoRunRegistry.Utilities.Interfaces" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2024.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
