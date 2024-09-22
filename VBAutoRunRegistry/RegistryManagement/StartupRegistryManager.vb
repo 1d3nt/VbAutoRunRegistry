@@ -40,25 +40,37 @@
         ''' Configures the application to automatically start with Windows by adding or updating 
         ''' the auto-run registry entry with the current executable's path.
         ''' </summary>
-        Friend Sub InstallStartupKey() Implements IStartupRegistryManager.InstallStartupKey
+        ''' <returns>A Boolean indicating whether the registry key was installed successfully.</returns>
+        Friend Function InstallStartupKey() As Boolean Implements IStartupRegistryManager.InstallStartupKey
             Dim currentPath As String = _applicationRegistryManager.GetSetting(ValueName)
             Dim applicationPath As String = Environment.ProcessPath
+    
             If currentPath Is Nothing OrElse Not currentPath.Equals(applicationPath, StringComparison.OrdinalIgnoreCase) Then
-                Using key As IRegistryKey = GetStartupKey()
-                    key.SetValue(ValueName, applicationPath)
-                End Using
+                Try
+                    Using key As IRegistryKey = GetStartupKey()
+                        key.SetValue(ValueName, applicationPath)
+                    End Using
+                Catch ex As Exception
+                    Throw
+                End Try
             End If
-        End Sub
+            Return True
+        End Function
 
         ''' <summary>
         ''' Removes the application's entry from the Windows startup registry, 
         ''' preventing it from starting automatically with Windows.
         ''' </summary>
-        Friend Sub UninstallStartupKey() Implements IStartupRegistryManager.UninstallStartupKey
-            Using key As IRegistryKey = GetStartupKey()
-                key.DeleteValue(ValueName)
-            End Using
-        End Sub
+        Friend Function UninstallStartupKey() As Boolean Implements IStartupRegistryManager.UninstallStartupKey
+            Try
+                Using key As IRegistryKey = GetStartupKey()
+                    key.DeleteValue(ValueName)
+                End Using
+                Return True
+            Catch ex As Exception
+                Throw
+            End Try
+        End Function
 
         ''' <summary>
         ''' Retrieves the auto-run registry key for the current user. If the key does not exist, it is created.
