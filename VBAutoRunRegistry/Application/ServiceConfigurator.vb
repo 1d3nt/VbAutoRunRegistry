@@ -1,6 +1,7 @@
 ﻿Imports VBAutoRunRegistry.Utilities
 
 Namespace Application
+
     ''' <summary>
     ''' Configures the services for dependency injection.
     ''' </summary>

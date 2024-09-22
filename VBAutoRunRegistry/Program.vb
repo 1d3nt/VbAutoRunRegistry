@@ -21,6 +21,9 @@ Imports System.Diagnostics.CodeAnalysis
 ''' Contributions and enhancements are welcomed to further extend the functionality and improve the integration.
 ''' 
 ''' Just a hobby programmer that enjoys working with registry interactions and system-level APIs.
+'''
+''' As a tribute to AtmaWeapon(Xtreme VB Talk), whose guidance helped me understand registry interactions and the true essence of programming, 
+''' moving beyond merely copying and pasting code. This project reflects that learning journey.
 ''' </remarks>
 Module Program
 

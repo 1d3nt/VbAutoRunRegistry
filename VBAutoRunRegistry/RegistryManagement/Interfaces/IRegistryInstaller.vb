@@ -9,6 +9,6 @@
         ''' Installs the registry key.
         ''' </summary>
         ''' <returns>A task representing the asynchronous operation.</returns>
-        Function InstallRegistryKeyAsync() As Task
+        Function InstallRegistryKeyAsync() As Task(of Boolean)
     End Interface
 End Namespace

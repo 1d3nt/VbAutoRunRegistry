@@ -4,10 +4,12 @@
     ''' Handles the process exit event to perform cleanup tasks.
     ''' </summary>
     Public Class ProcessExitHandler
+
         ''' <summary>
         ''' The IAppRunner instance used to stop the application.
         ''' </summary>
         Private ReadOnly _appRunner As IAppRunner
+
         ''' <summary>
         ''' Initializes a new instance of the <see cref="ProcessExitHandler"/> class.
         ''' </summary>
@@ -16,6 +18,7 @@
             _appRunner = appRunner
             AddHandler AppDomain.CurrentDomain.ProcessExit, AddressOf OnProcessExit
         End Sub
+
         ''' <summary>
         ''' Handles the ProcessExit event to uninstall the registry key.
         ''' </summary>
