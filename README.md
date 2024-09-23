@@ -85,3 +85,6 @@ To run the application, execute the following steps:
 1. Compile the solution in Visual Studio.
 2. Ensure you have sufficient privileges to modify the registry on your machine.
 3. Run the executable or use the debugger to step through and observe registry changes.
+
+## Acknowledgements
+Special thanks to AtmaWeapon for invaluable guidance in learning about registry handling in VB.NET and emphasizing the importance of programming principles over mere code replication.
