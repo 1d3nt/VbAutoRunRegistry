@@ -111,6 +111,11 @@ Namespace Application
         '''       <see cref="IRegistryHive"/> is implemented by <see cref="MicrosoftRegistryHive"/>.
         '''     </description>
         '''   </item>
+        '''   <item>
+        '''     <description>
+        '''       <see cref="IRegistryHelper"/> is implemented by <see cref="RegistryHelper"/>.
+        '''     </description>
+        '''   </item>
         ''' </list>
         ''' </remarks>
         Private Shared Sub RegisterRegistryManagementServices(services As IServiceCollection)
@@ -119,7 +124,8 @@ Namespace Application
                 {GetType(IRegistryUninstaller), GetType(RegistryUninstaller)},
                 {GetType(IApplicationRegistryManager), GetType(ApplicationRegistryManager)},
                 {GetType(IStartupRegistryManager), GetType(StartupRegistryManager)},
-                {GetType(IRegistryHive), GetType(MicrosoftRegistryHive)}
+                {GetType(IRegistryHive), GetType(MicrosoftRegistryHive)},
+                {GetType(IRegistryHelper), GetType(RegistryHelper)}
             }
             AddServices(services, registryManagementServices)
         End Sub

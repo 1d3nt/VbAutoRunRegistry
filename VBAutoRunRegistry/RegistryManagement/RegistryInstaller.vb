@@ -30,7 +30,6 @@
                 End Sub)
                 Return True
             Catch ex As Exception
-                Console.WriteLine($"Registry key installation failed: {ex.Message}")
                 Throw
             End Try
         End Function

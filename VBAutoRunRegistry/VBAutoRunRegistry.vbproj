@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>VBAutoRunRegistry</RootNamespace>
     <TargetFramework>net8.0</TargetFramework>
-    <ImportedNamespaces>JetBrains.Annotations=False,Microsoft.Extensions.DependencyInjection=False,Microsoft.Extensions.DependencyInjection.Extensions=False,Microsoft.Win32=False,VBAutoRunRegistry.Application=False,VBAutoRunRegistry.Application.Interfaces=False,VBAutoRunRegistry.RegistryManagement=False,VBAutoRunRegistry.RegistryManagement.Interfaces=False,VBAutoRunRegistry.RegistryManagement.RegistryAccess=False,VBAutoRunRegistry.Utilities.Interfaces=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,VBAutoRunRegistry=True</ImportedNamespaces>
+    <ImportedNamespaces>JetBrains.Annotations=False,Microsoft.Extensions.DependencyInjection=False,Microsoft.Extensions.DependencyInjection.Extensions=False,Microsoft.Win32=False,VBAutoRunRegistry.Application=False,VBAutoRunRegistry.Application.Interfaces=False,VBAutoRunRegistry.RegistryManagement=False,VBAutoRunRegistry.RegistryManagement.Interfaces=False,VBAutoRunRegistry.RegistryManagement.RegistryAccess=False,VBAutoRunRegistry.Utilities=False,VBAutoRunRegistry.Utilities.Interfaces=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,VBAutoRunRegistry=True</ImportedNamespaces>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +21,7 @@
     <Import Include="VBAutoRunRegistry.RegistryManagement" />
     <Import Include="VBAutoRunRegistry.RegistryManagement.Interfaces" />
     <Import Include="VBAutoRunRegistry.RegistryManagement.RegistryAccess" />
+    <Import Include="VBAutoRunRegistry.Utilities" />
     <Import Include="VBAutoRunRegistry.Utilities.Interfaces" />
   </ItemGroup>
 

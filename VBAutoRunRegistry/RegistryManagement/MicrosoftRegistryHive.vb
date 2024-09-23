@@ -18,11 +18,18 @@
         ''' <param name="keyName">The name or path of the subkey to create or open.</param>
         ''' <returns>
         ''' An instance of <see cref="IRegistryKey"/> representing the created or opened subkey.
-        ''' If the subkey is newly created, it will be empty; if opened, it will contain existing values.
+        ''' Returns <c>Nothing</c> if the subkey cannot be created.
         ''' </returns>
         Friend Function CreateSubKey(keyName As String) As IRegistryKey Implements IRegistryHive.CreateSubKey
-            Dim registryKey As RegistryKey = Hive.CreateSubKey(keyName)
-            Return New MicrosoftRegistryKey(registryKey)
+            Try
+                Dim registryKey As RegistryKey = Hive.CreateSubKey(keyName)
+                If registryKey Is Nothing Then
+                    Return Nothing
+                End If
+                Return New MicrosoftRegistryKey(registryKey)
+            Catch ex As ObjectDisposedException
+                Throw
+            End Try
         End Function
 
         ''' <summary>
@@ -32,18 +39,19 @@
         ''' <param name="accessMode">The access mode to open the subkey with, either read or read/write.</param>
         ''' <returns>
         ''' An instance of <see cref="IRegistryKey"/> representing the opened subkey.
-        ''' Returns <c>null</c> if the subkey does not exist.
+        ''' Returns <c>Nothing</c> if the subkey does not exist.
         ''' </returns>
         Friend Function OpenSubKey(keyName As String, accessMode As RegistryMode) As IRegistryKey Implements IRegistryHive.OpenSubKey
-            Dim writable As Boolean = (accessMode = RegistryMode.ReadWrite)
-            Dim key As RegistryKey = Hive.OpenSubKey(keyName, writable)
-            Dim abstractKey As MicrosoftRegistryKey = Nothing
-            
-            If key IsNot Nothing Then
-                abstractKey = New MicrosoftRegistryKey(key)
-            End If
-
-            Return abstractKey
+            Try
+                Dim writable As Boolean = (accessMode = RegistryMode.ReadWrite)
+                Dim registryKey As RegistryKey = Hive.OpenSubKey(keyName, writable)
+                If registryKey Is Nothing Then
+                    Return Nothing
+                End If
+                Return New MicrosoftRegistryKey(registryKey)
+            Catch ex As ObjectDisposedException
+                Throw
+            End Try
         End Function
     End Class
 End Namespace

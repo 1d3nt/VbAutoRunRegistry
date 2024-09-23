@@ -15,20 +15,25 @@
         ''' The service provider used for retrieving services.
         ''' </summary>
         Private ReadOnly _serviceProvider As IServiceProvider
+        ''' <summary>
+        ''' The user input reader used to read user input from the console.
+        ''' </summary>
+        Private ReadOnly _userInputReader As IUserInputReader
+        ''' <summary>
+        ''' The user prompter used to display messages and prompts to the user.
+        ''' </summary>
+        Private ReadOnly _userPrompter As IUserPrompter
 
         ''' <summary>
         ''' Initializes a new instance of the <see cref="AppRunner"/> class.
         ''' </summary>
-        ''' <param name="serviceProvider">
-        ''' An instance of <see cref="IServiceProvider"/> used to resolve dependencies and obtain services.
-        ''' </param>
-        ''' <remarks>
-        ''' The constructor takes an <see cref="IServiceProvider"/> as a parameter and assigns it to the
-        ''' <see cref="_serviceProvider"/> field. This service provider is used throughout the class to obtain 
-        ''' necessary services.
-        ''' </remarks>
-        Public Sub New(serviceProvider As IServiceProvider)
+        ''' <param name="serviceProvider">An instance of <see cref="IServiceProvider"/> used to resolve dependencies and obtain services.</param>
+        ''' <param name="userInputReader">An instance of <see cref="IUserInputReader"/> for reading user input.</param>
+        ''' <param name="userPrompter">An instance of <see cref="IUserPrompter"/> for displaying messages.</param>
+        Public Sub New(serviceProvider As IServiceProvider, userInputReader As IUserInputReader, userPrompter As IUserPrompter)
             _serviceProvider = serviceProvider
+            _userInputReader = userInputReader
+            _userPrompter = userPrompter
         End Sub
 
         ''' <summary>
@@ -45,14 +50,14 @@
             If shouldProceed Then
                 Try
                     Dim installationSuccess = Await InstallRegistryKeyAsync()
-                    Console.WriteLine($"Registry key installation success: {installationSuccess}")
+                    _userPrompter.Prompt($"Registry key installation success: {installationSuccess}")
                 Catch ex As Exception
-                    Console.WriteLine($"Registry key installation failed: {ex.Message}")
+                    _userPrompter.Prompt($"Registry key installation failed: {ex.Message}")
                 End Try
             Else
-                Console.WriteLine("Registry key installation was not performed.")
+                _userPrompter.Prompt("Registry key installation was not performed.")
             End If
-            Console.ReadLine()
+            _userInputReader.ReadInput()
         End Function
 
         ''' <summary>
@@ -64,9 +69,9 @@
         Friend Async Function StopAsync() As Task Implements IAppRunner.StopAsync
             Try
                 Dim uninstallationSuccess = Await UninstallRegistryKeyAsync()
-                Console.WriteLine($"Registry key uninstallation success: {uninstallationSuccess}")
+                _userPrompter.Prompt($"Registry key uninstallation success: {uninstallationSuccess}")
             Catch ex As Exception
-                Console.WriteLine($"Registry key uninstallation failed: {ex.Message}")
+                _userPrompter.Prompt($"Registry key uninstallation failed: {ex.Message}")
             End Try
         End Function
 

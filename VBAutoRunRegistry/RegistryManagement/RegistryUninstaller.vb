@@ -24,9 +24,13 @@
         ''' </summary>
         ''' <returns>A task representing the asynchronous operation.</returns>
         Friend Async Function UninstallRegistryKeyAsync() As Task Implements IRegistryUninstaller.UninstallRegistryKeyAsync
-            Await Task.Run(Sub()
-                _startupRegistryManager.UninstallStartupKey()
-            End Sub)
+            Try
+                Await Task.Run(Sub()
+                    _startupRegistryManager.UninstallStartupKey()
+                End Sub)
+            Catch ex As Exception
+                Throw
+            End Try
         End Function
     End Class
 End Namespace

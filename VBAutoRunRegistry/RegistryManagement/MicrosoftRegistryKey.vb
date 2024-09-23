@@ -23,7 +23,6 @@
         ''' <param name="root">The root registry key.</param>
         ''' <exception cref="ArgumentNullException">Thrown when <paramref name="root"/> is null.</exception>
         Friend Sub New(root As RegistryKey)
-            ArgumentNullException.ThrowIfNull(root)
             _root = root
         End Sub
 
@@ -31,18 +30,10 @@
         ''' Deletes the specified value from the registry key.
         ''' </summary>
         ''' <param name="valueName">The name of the value to delete.</param>
-        Public Sub DeleteValue(valueName As String) Implements IRegistryKey.DeleteValue
-            ThrowIfDisposed()
+        ''' <exception cref="ObjectDisposedException">Thrown when the object has been disposed.</exception>
+        Friend Sub DeleteValue(valueName As String) Implements IRegistryKey.DeleteValue
+            ObjectDisposedException.ThrowIf(_isDisposed, NameOf(MicrosoftRegistryKey))
             _root.DeleteValue(valueName, False)
-        End Sub
-
-        ''' <summary>
-        ''' Releases all resources used by the <see cref="MicrosoftRegistryKey"/> instance.
-        ''' This method is called by the public <see cref="Dispose"/> method and finalizer.
-        ''' </summary>
-        Public Sub Dispose() Implements IDisposable.Dispose
-            Dispose(True)
-            GC.SuppressFinalize(Me)
         End Sub
 
         ''' <summary>
@@ -51,28 +42,9 @@
         ''' <param name="valueName">The name of the value to set.</param>
         ''' <param name="value">The value to set.</param>
         ''' <exception cref="ObjectDisposedException">Thrown when the object has been disposed.</exception>
-        Public Sub SetValue(valueName As String, value As Object) Implements IRegistryKey.SetValue
-            ThrowIfDisposed()
-            _root.SetValue(valueName, value, RegistryValueKind.String)
-        End Sub
-
-        ''' <summary>
-        ''' Disposes the managed resources of the <see cref="MicrosoftRegistryKey"/> instance.
-        ''' </summary>
-        ''' <param name="disposing">A boolean value indicating whether to dispose managed resources.</param>
-        Private Sub Dispose(disposing As Boolean)
-            If disposing AndAlso Not _isDisposed Then
-                _isDisposed = True
-                _root.Close()
-            End If
-        End Sub
-
-        ''' <summary>
-        ''' Throws an <see cref="ObjectDisposedException"/> if the object has been disposed.
-        ''' </summary>
-        ''' <exception cref="ObjectDisposedException">Thrown when the object has been disposed.</exception>
-        Private Sub ThrowIfDisposed()
+        Friend Sub SetValue(valueName As String, value As Object) Implements IRegistryKey.SetValue
             ObjectDisposedException.ThrowIf(_isDisposed, NameOf(MicrosoftRegistryKey))
+            _root.SetValue(valueName, value, RegistryValueKind.String)
         End Sub
 
         ''' <summary>
@@ -84,9 +56,30 @@
         ''' The value associated with the specified name, or <paramref name="defaultValue"/> if the name does not exist.
         ''' </returns>
         ''' <exception cref="ObjectDisposedException">Thrown when the object has been disposed.</exception>
-        Public Function GetValue(valueName As String, defaultValue As Object) As Object Implements IRegistryKey.GetValue
-            ThrowIfDisposed()
+        Friend Function GetValue(valueName As String, defaultValue As Object) As Object Implements IRegistryKey.GetValue
+            ObjectDisposedException.ThrowIf(_isDisposed, NameOf(MicrosoftRegistryKey))
             Return _root.GetValue(valueName, defaultValue)
         End Function
+
+        ''' <summary>
+        ''' Releases all resources used by the <see cref="MicrosoftRegistryKey"/> instance.
+        ''' </summary>
+        Public Sub Dispose() Implements IDisposable.Dispose
+            Dispose(True)
+            GC.SuppressFinalize(Me)
+        End Sub
+
+        ''' <summary>
+        ''' Disposes the managed resources of the <see cref="MicrosoftRegistryKey"/> instance.
+        ''' </summary>
+        ''' <param name="disposing">A boolean value indicating whether to dispose managed resources.</param>
+        Private Sub Dispose(disposing As Boolean)
+            If Not _isDisposed Then
+                If disposing Then
+                    _root.Close()
+                End If
+                _isDisposed = True
+            End If
+        End Sub
     End Class
 End Namespace

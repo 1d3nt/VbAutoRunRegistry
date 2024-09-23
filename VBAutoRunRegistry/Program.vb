@@ -1,5 +1,3 @@
-Imports System.Diagnostics.CodeAnalysis
-
 ''' <author>
 ''' Sam (ident)
 ''' Twitter: <see href="https://twitter.com/1d3nt">https://twitter.com/1d3nt</see>
@@ -50,16 +48,17 @@ Module Program
     ''' The variable <c>serviceProvider</c> manages service dependencies for the application. 
     ''' The <c>appRunner</c> variable is responsible for orchestrating the auto-run setup process by executing the application's core logic.
     ''' </remarks>
-    <SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification:="Standard Main method parameter signature.")>
+    <CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification:="Standard Main method parameter signature.")>
     Sub Main(args As String())
+        Dim serviceProvider As IServiceProvider = ServiceConfigurator.ConfigureServices()
+        Dim userPrompter = serviceProvider.GetService(Of IUserPrompter)()
+        Dim appRunner = serviceProvider.GetService(Of IAppRunner)()
+        Dim processExitHandler As New ProcessExitHandler(appRunner)
         Try
-            Dim serviceProvider As IServiceProvider = ServiceConfigurator.ConfigureServices()
-            Dim appRunner = serviceProvider.GetService(Of IAppRunner)()
-            Dim processExitHandler As New ProcessExitHandler(appRunner)
             appRunner.RunAsync().GetAwaiter().GetResult()
             GC.KeepAlive(processExitHandler)
         Catch ex As Exception
-            Console.WriteLine($"An error occurred: {ex.Message}")
+            userPrompter.Prompt($"An error occurred: {ex.Message}")
         End Try
     End Sub
 End Module
