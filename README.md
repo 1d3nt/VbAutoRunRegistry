@@ -20,7 +20,6 @@ This solution leverages various interfaces and services to ensure that registry 
 - **.NET Core/Framework**
 - **Windows Registry API** (via Microsoft.Win32 namespace)
 - **Dependency Injection**
-- **Unit Testing Frameworks** (e.g., MSTest, NUnit)
 
 ## Project Structure
 
@@ -79,3 +78,10 @@ This solution leverages various interfaces and services to ensure that registry 
    cd VBAutoRunRegistry
    ```
 2. Open the solution in Visual Studio and restore the NuGet packages.
+
+## Running the Application
+To run the application, execute the following steps:
+
+1. Compile the solution in Visual Studio.
+2. Ensure you have sufficient privileges to modify the registry on your machine.
+3. Run the executable or use the debugger to step through and observe registry changes.
