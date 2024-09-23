@@ -87,4 +87,4 @@ To run the application, execute the following steps:
 3. Run the executable or use the debugger to step through and observe registry changes.
 
 ## Acknowledgements
-Special thanks to AtmaWeapon for invaluable guidance in learning about registry handling in VB.NET and emphasizing the importance of programming principles over mere code replication.
+Special thanks to AtmaWeapon(xtremevbtalk 2009) for invaluable guidance in learning about registry handling in VB.NET and emphasizing the importance of programming principles over mere code replication.
