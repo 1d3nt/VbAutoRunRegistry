@@ -21,7 +21,7 @@
 ''' Just a hobby programmer that enjoys working with registry interactions and system-level APIs.
 '''
 ''' As a tribute to AtmaWeapon(Xtreme VB Talk), whose guidance helped me understand registry interactions and the true essence of programming, 
-''' moving beyond merely copying and pasting code. This project reflects that learning journey.
+''' moving beyond merely copying and pasting code(2009). This project reflects that learning journey.
 ''' </remarks>
 Module Program
 
